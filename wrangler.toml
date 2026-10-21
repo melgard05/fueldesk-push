@@ -1,0 +1,16 @@
+# Cloudflare deploy settings for the fueldesk Worker (FuelDesk diesel buy advisor).
+# Secrets and variables (APP_KEY, FIREBASE_*, FUELCLOUD_*, VAPID_*, ALLOWED_ORIGIN,
+# APP_URL) stay in Cloudflare and are never stored here. No KV — data is in Firebase.
+name = "fueldesk"
+main = "worker.js"
+compatibility_date = "2026-10-15"   # matches the dashboard
+
+# keep plain-text variables set in the dashboard
+keep_vars = true
+
+[triggers]
+# UTC: hourly ~7am–6pm Central on weekdays, plus one weekend-morning check
+crons = ["0 12-23 * * MON-FRI", "0 14 * * SAT,SUN"]
+
+[observability]
+enabled = true
